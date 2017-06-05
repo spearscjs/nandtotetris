@@ -1,0 +1,51 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 04/29/17 1:00AM
+***********************************************************************
+* TITLE:				Sys
+* CLASS DESCRIPTION:  contains functions for use of system, combines os together
+***********************************************************************/
+class Sys {
+
+    //init: initializes all necessary objects for system function, then starts main
+    function void init() {
+		do Math.init();
+    	do Memory.init();
+		do Screen.init();
+    	do Keyboard.init();
+    	do Output.init();
+    	
+    	
+    	do Main.main();
+    	do Sys.halt();
+    	return;
+    }
+
+    //halt: halt execution through infinite loop
+    function void halt() {
+		//halt with infinite loop
+    	while (true) { 
+		}
+    	return;
+    }
+
+   //wait: wait duration (not accurate right now)
+	//param: duration in milliseconds
+	//return void
+    function void wait(int duration) {
+    	var int i;
+    	let i = 0;
+    	while (i < duration) { //loop through duration
+			let i = i + 1; //update i
+		}
+    	return;
+    }
+
+    //error: print error code
+	//return void
+    function void error(int errorCode) {
+    	do Output.printString("ERROR: code ");
+		do Output.printInt(errorCode);
+		return;
+    }
+}

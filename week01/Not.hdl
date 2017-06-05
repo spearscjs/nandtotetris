@@ -1,0 +1,23 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 01/29/2017 6:00PM
+***********************************************************************/
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Not.hdl
+
+/**
+ * Not gate:
+ * out = not in
+ */
+
+CHIP Not {
+    IN in;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    //negate in value and output
+    Nand(a = in, b = in, out = out);
+}

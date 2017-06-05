@@ -1,0 +1,77 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 04/29/17 1:00AM
+***********************************************************************
+* TITLE:				Keyboard
+* CLASS DESCRIPTION:  contains functions for use of keyboard
+***********************************************************************/
+class Keyboard {
+	//initilization
+    static Array keyboard; 
+    
+	//init: initializes Keyboard class
+	//return: void
+    function void init() {
+        let keyboard = 24576; //given mem address, array starts here
+        return;
+    } 
+
+	
+	//keyPressed: returns value in mem associated with key press
+	//return: char keyNum
+    function char keyPressed() {
+        return keyboard[0]; //one mem loc represents pressed character 
+    }
+
+	//readChar: reads character from keyboard
+	//return char c
+    function char readChar() {
+        var char key;
+        while( Keyboard.keyPressed() = 0 ) {
+			//do nothing - keep reading, only break if button pressed	
+		}
+		//read key
+        let key = Keyboard.keyPressed(); 
+        while( ~(Keyboard.keyPressed() = 0) ) {
+			//do nothing (avoids multiple cycle readings when pressed) 	
+		}
+        do Output.printChar(key);
+        return key;
+    }
+
+	//readLine: reads line from keyboard
+	//return: String line
+    function String readLine(String message) {
+        var String line;
+        var char c; //used to read through each char
+
+		//print message
+        do Output.printString(message);
+        
+        let line = String.new(50);    //max length - 50 for string 
+        let c = Keyboard.readChar();
+		//loop until end of line
+        while( ~(c = String.newLine()) ) {
+			//erase char if keypressed is backspace
+            if( c = String.backSpace() ) {
+                do line.eraseLastChar();
+            }
+			//else append pressed char 
+            else {
+                do line.appendChar(c);
+            }
+            let c = Keyboard.readChar();
+        }
+        return line;
+    }   
+
+	//readInt: reads int from keyboard
+	//return: int readInt   
+    function int readInt(String message) {
+        var String line;
+ 		//must read as String
+        let line = Keyboard.readLine(message);
+		//return parsed int value        
+		return line.intValue();
+    }
+}

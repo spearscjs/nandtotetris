@@ -1,0 +1,2 @@
+# nandtotetris
+Full nandtotetris course assignments as followed in a separate Computer Architecture and Assembly Language course. The course builds a computer starting from simple logic gates up to a functional operating system. Each week gets progresively higher level. The Architecture & Assembly course branched a bit from the original nandtotetris course by Nisan and Schocken at the University of Jerusalem but most coursework is similar. 

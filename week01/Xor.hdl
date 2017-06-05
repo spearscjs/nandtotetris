@@ -1,0 +1,30 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 01/29/2017 6:00PM
+***********************************************************************/
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Xor.hdl
+
+/**
+ *  Exclusive-or gate:
+ *  out = not (a == b)
+ */
+
+CHIP Xor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    //negate a and b values
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    //check for a==1 * b==0
+    And(a=a, b=notB, out=outAndA);
+    //check for a==0 * b==1
+    And(a=notA, b=b, out=outAndB);
+    //check if either of above are true  
+    Or(a=outAndA, b=outAndB, out=out);
+}

@@ -1,0 +1,25 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 04/29/17 1:00AM
+***********************************************************************
+* TITLE:				Array
+* CLASS DESCRIPTION:  allocates or deallocates mem space for array
+***********************************************************************/
+class Array {
+
+	//new: allocates memory for new array given size
+	//param: int size
+	//return: ref to allocated space    
+    function Array new(int size) {
+        return Memory.alloc(size);
+    }
+
+    
+	//dispose: dispose of array object
+	//return: void
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}
+

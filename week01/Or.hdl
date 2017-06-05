@@ -1,0 +1,27 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 01/29/2017 6:00PM
+***********************************************************************/
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Or.hdl
+
+ /**
+ * Or gate:
+ * out = 1 if (a == 1 or b == 1)
+ *       0 otherwise
+ */
+
+CHIP Or {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    //negate a and b
+    Not(in=a, out=outNotA);
+    Not(in=b, out=outNotB);  
+    //Nand negated values !(a==1 && b==1) ensuring they both didn't start = 0
+    Nand(a=outNotA, b=outNotB, out=out);
+}

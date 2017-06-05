@@ -1,0 +1,144 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 04/29/17 1:00AM
+***********************************************************************
+* TITLE:				Math
+* CLASS DESCRIPTION:  contains functions for use of mathematics
+***********************************************************************/
+class Math {
+
+	//Variables
+	static int bitPowers;
+    
+	//init: initialize Math, fills itPowers array for efficiency
+    function void init() {
+        let bitPowers = Array.new(16);
+        let bitPowers[0] = 1;
+        let bitPowers[1] = 2;
+        let bitPowers[2] = 4;
+        let bitPowers[3] = 8;
+        let bitPowers[4] = 16;
+        let bitPowers[5] = 32;
+        let bitPowers[6] = 64;
+        let bitPowers[7] = 128;
+        let bitPowers[8] = 256;
+        let bitPowers[9] = 512;
+        let bitPowers[10] = 1024;
+        let bitPowers[11] = 2048;
+        let bitPowers[12] = 4096;
+        let bitPowers[13] = 8192;
+        let bitPowers[14] = 16384;
+        let bitPowers[15] = 16384+16384;
+        return;
+    }
+
+	
+	//multiply: return x*y
+	//param: int x
+	//param: int y
+	//return int x*y
+	function int multiply(int x, int y) {
+		var int sum, shiftedX, count; 
+		let sum = 0;
+		let shiftedX = x; 
+		let count = 0;
+
+		while(count < 16) //count < number of bits 
+		{
+			if(~(y & bitPowers[count] = 0)) //only add (on) y bits
+			{
+				let sum = sum + shiftedX;
+			}
+			let shiftedX = shiftedX + shiftedX; //shift, base 2 so multiply by 2 or double
+			let count = count + 1; //update count
+		}
+		return sum; //done
+    }
+    
+    
+	//divide: returns x/y rounded
+	//param: int x
+	//param: int y
+	//return: int x/y
+	function int divide(int x, int y) {
+		var int q;
+		
+		if (y = 0) {
+			do Sys.error(3); // error if dividing by 0
+		}
+		//deal with negatives
+		if (x < 0) {
+			return -Math.divide(-x, y);
+		}
+		if (y < 0) {
+			return -Math.divide(x, -y);
+		}
+		//only integer division allowed
+		if (y > x) {
+			return 0;
+		}
+		//keep dividing until y exceeds x
+		let q = Math.divide(x, y + y);
+		//add recursive values    
+		if ((x - (2 * q * y)) < y) {
+			return q + q;
+		} 
+		//round
+		else {
+			return q + q + 1;
+		}
+	}
+	
+	//sqrt: calculates rounded square root of x param
+	//param: x
+	//return root(x)
+	function int sqrt(int x) {
+      var int result, count, quotient, quotientSq;
+      let count = 7; //only need 7 bits
+      while (count > -1) {
+		//start at highest power, 
+        let quotient = result + bitPowers[count];
+        let quotientSq = quotient * quotient;
+		//keep going down in power until correct value (or closest) is found
+        if ((quotientSq > 0) & ((quotientSq < x) | (quotientSq = x))) {
+          let result = quotient;
+        }
+        let count = count - 1;
+      }
+      return result;
+    }
+
+    //abs: returns absolute value of param
+	//return: abs(x) 
+	function int abs(int x) {
+		if(x < 0) {
+			return -x;
+		}
+		return x;
+    }
+
+	//min: returns smaller param
+	//param: a, b
+	//return int smallest
+	function int min(int a, int b) {
+		if(a < b) {
+			return a;
+		}
+		else {
+			return b;
+		}
+	}
+	
+	//max: returns larger param
+	//param: a, b
+	//return int larger
+	function int max(int a, int b) {
+		if(a > b) {
+			return a;
+		}
+		else {
+			return b;
+		}
+	}
+
+}

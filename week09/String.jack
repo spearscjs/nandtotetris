@@ -1,0 +1,188 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 04/29/17 1:00AM
+***********************************************************************
+* TITLE:				String
+* CLASS DESCRIPTION:  contains functions for use of Strings / multiple chars
+***********************************************************************/
+
+class String {
+    
+	//instance variables
+    field int length;
+    field int maxLength;
+    field Array chars;
+
+    //new: constructor for String 
+	//param: int max - max length for string
+	//return: this instance
+    constructor String new(int max) {
+		let length = 0; //initialize length to 0       
+		//check for invalid lengths
+        if(max = 0 | max < 0){
+           let max = 1;   
+        }
+        let maxLength = max; //initialize instance
+        let chars = Array.new(maxLength); //allocate mem for String array given max length 
+        return this; //return
+    }
+
+    //dispose: deallocate mem space
+	//return: void
+    method void dispose() {
+        do chars.dispose();
+        return;
+    }
+
+	//length: accessor for length instance
+	//return: int length
+    method int length() {
+        return length;
+    }
+
+	//charAt: returns char at given index
+	//param: int index
+	//return: char ch
+    method char charAt(int index) {
+        return chars[index];
+    }
+
+    //setCharAt: set char at index to ch 
+	//param: int index, char ch
+	//return: void 
+    method void setCharAt(int index, char ch) {
+        let chars[index] = ch;
+        return;
+    }
+
+   //appendChar: appends char ch to end of string
+	//param: char ch
+	//return: String appendedThis
+    method String appendChar(char ch) {
+        //ensure length doesn't exceed capacity
+        if(length < maxLength) {
+			//add char
+            let chars[length] = ch;
+			//increment length
+            let length = length + 1;
+        } 
+		//outputting errors slows speeds
+        return this; 
+    }
+
+    //eraseLastChar: delete last char from string
+	//return void
+    method void eraseLastChar() {
+		//ensure valid length
+        if(length > 0) {
+			//rid of last char
+            let length = length - 1;
+        }
+        return;
+    }
+
+    //intValue: returns int values of this up to first non int character
+	//return int val
+    method int intValue() {
+		//declartation
+		var boolean isNeg;
+        var int index, val;
+
+        let val = 0; //initialize
+
+        //get flag determining negative
+        if((length > 0) & (chars[0] = 45)) {
+            let isNeg = true;
+            let index = 1; //increment past -, dealt with later
+        }else{
+            let isNeg = false;
+            let index = 0;
+        }
+		
+		//keep going until non-digit reached
+        while((index < length) & String.isDigit(chars[index])) {
+			//keep moving over digit by multiplying by 10 
+            let val = (val * 10) + String.charToDigit(chars[index]);
+            let index = index + 1;
+        }
+		//negate if negative
+        if(isNeg) {
+            return -val;
+        }
+		else {
+            return val;
+        }
+
+    }
+
+    //isDigit: returns oolean based of whether char is digit
+	//return boolean isDigit
+    function boolean isDigit(char c){
+		//there is no <= or >=, use contrapositive
+        return ~(c < 48) & ~(c > 57);
+    }
+
+	//charToDigit: returns valid digit char to int value
+	//return int digit
+    function int charToDigit(char c){
+        return c - 48;
+    }
+
+    //digitToChar: returns valid digit as char
+	//return char ch
+    function char digitToChar(int d){
+        return d + 48;
+    }
+
+    
+	//setInt: sets this to number
+	//param: number
+	//return: void
+    method void setInt(int number) {
+        let length = 0;    //clear
+        
+        if( number < 0 ) {
+            let number = -number;
+            do appendChar(45);      //msd -
+        }
+        
+        do setIntHelper(number);
+        return;
+    }
+
+	//setINtHelper: recursive function to help setInt traversal
+	//param: int num
+	//return void
+    method void setIntHelper(int num){
+        var int next;
+		//append if number is single digit
+        if(num < 10){
+            do appendChar(String.digitToChar(num));
+        }
+		//else continue to traverse through number, will recursively append in correct order
+		else {
+            let next = num / 10; 
+			//keep going until base case hit
+            do setIntHelper(next);
+			//append individual chars at correct index
+            do appendChar(String.digitToChar(num - (next * 10)));
+        }
+
+        return;
+    }
+
+    //newLine: accesses int val for newLine
+    function char newLine() {
+        return 128;
+    }
+
+    //backspace: accesses int val for backspace
+    function char backSpace() {
+        return 129;
+    }
+
+	//accesses int val for doubleQuote
+    function char doubleQuote() {
+        return 34;
+    }
+}

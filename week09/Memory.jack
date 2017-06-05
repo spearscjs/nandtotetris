@@ -1,0 +1,92 @@
+/**********************************************************************
+* AUTHOR: spearscjs
+* LAST MODIFIED: 04/29/17 1:00AM
+***********************************************************************
+* TITLE:				Memory
+* CLASS DESCRIPTION:  contains functions for allocation/deallocation of memory, tracks free mem
+***********************************************************************/
+class Memory {
+
+	//instance variables
+	static Array memory;
+	static Array free;
+	
+   //init: initializes memory and freeList
+    function void init() {
+    	let memory = 0;
+    	let free = 2048;
+		//calc size of free
+    	let free[0] = 14335; //16383 - 2048 (size of free)
+    	let free[1] = 0; //nothing at start (first val in frame is int representing size of frame)
+    	return;	
+    }
+
+   //peek: return mem value at given address
+	//param: int address
+	//return: int dereferencedAdd
+    function int peek(int address) {
+    	return memory[address];
+    }
+
+	 //poke: set memory at address to given int val
+	//param: int address, int value
+    function void poke(int address, int value) {
+    	let memory[address] = value;
+    	return;
+    }
+
+    //alloc: allocates next avial memory for size
+	//param: int size //to be allocated
+	//return: int startLoc
+    function int alloc(int size) {
+		//declaration
+    	var Array current, frame; //current position in heap, 
+    	var int current_size;
+		var boolean found;
+    	//initialize
+    	let found = false;
+    	let current = free; //point to front of free space
+    	while (~found) {
+    		if (current[0]>(size+1)) { // found available space
+    			let found = true;
+    		} 
+			else {
+    			if (current[1] = 0) { //
+    				do Sys.error(5);
+    				return 0;
+    			} 
+				//jump to next avail position
+    			let current = current[1];
+    		}
+    	}
+    	
+		//decrese size of free space
+    	let current_size = current[0]-(size+1);
+		//out of mem
+    	if (current_size < 30) {
+    		return current + 1; 
+    	}
+    	let current[0] = current_size; // update new size of current / free space
+    	let frame = current + current_size; //add frame to end of current frame
+    	let frame[0] = size + 1; //add size of activation frame to start of mem loc
+    	
+    	return frame + 1; //updated pos
+    }
+
+    //deAlloc: destruct obj from mem
+	//param: int obj
+	//return: void
+    function void deAlloc(int object) {
+		//declare
+    	var Array frame; //current frame in mem for object
+    	var int size; //size of frame - frame[0]
+		//go to start of object (go to first val in array - size)
+    	let frame = object-1;
+		//get size of frame
+    	let size = frame[0];
+		//update values for free, start at dealloc value
+		let frame[1] = free[1];
+    	let free[1] = frame;
+		return;
+    }
+}
